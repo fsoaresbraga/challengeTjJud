@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Assunto extends Model
+class Subject extends Model
 {
-    /** @use HasFactory<\Database\Factories\AssuntoFactory> */
+    /** @use HasFactory<\Database\Factories\SubjectFactory> */
     use HasFactory;
 
     protected $table = 'assunto';
@@ -23,10 +23,10 @@ class Assunto extends Model
         'descricao',
     ];
 
-    public function livros(): BelongsToMany
+    public function books(): BelongsToMany
     {
         return $this->belongsToMany(
-            Livro::class,
+            Book::class,
             'livro_assunto',
             'assunto_id',
             'livro_id',

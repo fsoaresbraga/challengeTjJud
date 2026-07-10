@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RelatorioLivroPorAutor extends Model
+class BookReportByAuthor extends Model
 {
     protected $table = 'vw_relatorio_livros_por_autor';
 
@@ -19,11 +19,11 @@ class RelatorioLivroPorAutor extends Model
     protected function casts(): array
     {
         return [
-            'cod_autor' => 'integer',
-            'cod_livro' => 'integer',
-            'edicao' => 'integer',
-            'ano_publicacao' => 'integer',
-            'valor' => 'decimal:2',
+            'authorId' => 'integer',
+            'bookId' => 'integer',
+            'edition' => 'integer',
+            'publicationYear' => 'integer',
+            'price' => 'decimal:2',
         ];
     }
 }

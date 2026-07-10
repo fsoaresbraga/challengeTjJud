@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Autor;
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Autor>
+ * @extends Factory<Author>
  */
-class AutorFactory extends Factory
+class AuthorFactory extends Factory
 {
-    protected $model = Autor::class;
+    protected $model = Author::class;
 
     public function definition(): array
     {

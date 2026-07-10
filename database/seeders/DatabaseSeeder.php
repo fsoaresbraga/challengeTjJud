@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AutorSeeder::class,
-            AssuntoSeeder::class,
-            LivroSeeder::class,
+            AuthorSeeder::class,
+            SubjectSeeder::class,
+            BookSeeder::class,
         ]);
     }
 }
