@@ -5,25 +5,31 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\DTOs\SubjectData;
+use App\Http\Controllers\Concerns\ResolvesPerPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\StoreSubjectRequest;
 use App\Http\Requests\Subject\UpdateSubjectRequest;
 use App\Http\Resources\SubjectResource;
 use App\Services\SubjectService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class SubjectController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private readonly SubjectService $subjectService,
     ) {
     }
 
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return SubjectResource::collection($this->subjectService->list());
+        return SubjectResource::collection(
+            $this->subjectService->list($this->perPage($request))
+        );
     }
 
     public function store(StoreSubjectRequest $request): JsonResponse

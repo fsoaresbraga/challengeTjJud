@@ -8,8 +8,9 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SubjectController;
 use Illuminate\Support\Facades\Route;
 
-Route::apiResource('books', BookController::class);
-Route::apiResource('authors', AuthorController::class);
-Route::apiResource('subjects', SubjectController::class);
+Route::apiResource('books', BookController::class)->names('api.books');
+Route::apiResource('authors', AuthorController::class)->names('api.authors');
+Route::apiResource('subjects', SubjectController::class)->names('api.subjects');
 
-Route::get('reports/books-by-author', [ReportController::class, 'booksByAuthor']);
+Route::get('reports/books-by-author', [ReportController::class, 'booksByAuthor'])
+    ->name('api.reports.books-by-author');

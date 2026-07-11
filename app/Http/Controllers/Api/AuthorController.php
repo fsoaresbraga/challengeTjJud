@@ -5,25 +5,31 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\DTOs\AuthorData;
+use App\Http\Controllers\Concerns\ResolvesPerPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Author\StoreAuthorRequest;
 use App\Http\Requests\Author\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Services\AuthorService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class AuthorController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private readonly AuthorService $authorService,
     ) {
     }
 
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return AuthorResource::collection($this->authorService->list());
+        return AuthorResource::collection(
+            $this->authorService->list($this->perPage($request))
+        );
     }
 
     public function store(StoreAuthorRequest $request): JsonResponse

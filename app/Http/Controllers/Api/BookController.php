@@ -5,25 +5,31 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\DTOs\BookData;
+use App\Http\Controllers\Concerns\ResolvesPerPage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Http\Requests\Book\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Services\BookService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class BookController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private readonly BookService $bookService,
     ) {
     }
 
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return BookResource::collection($this->bookService->list());
+        return BookResource::collection(
+            $this->bookService->list($this->perPage($request))
+        );
     }
 
     public function store(StoreBookRequest $request): JsonResponse
