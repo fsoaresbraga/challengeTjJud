@@ -1,0 +1,74 @@
+parameters:
+  - $ref: '../components/parameters.yaml#/AuthorId'
+
+get:
+  tags: [Authors]
+  summary: Get author
+  operationId: getAuthor
+  responses:
+    '200':
+      description: Author details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Author'
+    '404':
+      description: Author not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+          example:
+            message: Author with id 999 was not found.
+            errors: null
+            code: AUTHOR_NOT_FOUND
+
+put:
+  tags: [Authors]
+  summary: Update author
+  operationId: updateAuthor
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas.yaml#/AuthorInput'
+  responses:
+    '200':
+      description: Author updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Author'
+    '404':
+      description: Author not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+
+delete:
+  tags: [Authors]
+  summary: Delete author
+  operationId: deleteAuthor
+  responses:
+    '204':
+      description: Author deleted
+    '404':
+      description: Author not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'

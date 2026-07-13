@@ -60,8 +60,8 @@ function booksPage() {
 
             if (!title) {
                 errors.title = 'Informe o título do livro.';
-            } else if (title.length > 150) {
-                errors.title = 'O título deve ter no máximo 150 caracteres.';
+            } else if (title.length > 40) {
+                errors.title = 'O título deve ter no máximo 40 caracteres.';
             }
 
             if (!publisher) {

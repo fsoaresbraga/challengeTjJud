@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\Contracts\ReportRepositoryInterface;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
 
 class ReportService
@@ -28,5 +29,17 @@ class ReportService
     public function booksGroupedByAuthor(): Collection
     {
         return $this->booksByAuthor()->groupBy('authorName');
+    }
+
+    public function generateBooksByAuthorPdf(): string
+    {
+        $grouped = $this->booksGroupedByAuthor();
+
+        return Pdf::loadView('reports.pdf.books-by-author', [
+            'grouped' => $grouped,
+            'generatedAt' => now(),
+        ])
+            ->setPaper('a4', 'portrait')
+            ->output();
     }
 }

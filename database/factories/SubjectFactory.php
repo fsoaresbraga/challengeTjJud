@@ -17,7 +17,7 @@ class SubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'descricao' => fake()->unique()->words(2, true),
+            'descricao' => substr(fake()->unique()->words(2, true), 0, 20),
         ];
     }
 }

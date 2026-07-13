@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: TJ JUD Books API
+  description: |
+    REST API for Books, Authors and Subjects.
+    Application code uses English; database schema remains in Portuguese.
+  version: 1.0.0
+
+servers:
+  - url: /api
+    description: Internal API
+
+tags:
+  - name: Books
+  - name: Authors
+  - name: Subjects
+  - name: Reports
+
+paths:
+  /books:
+    $ref: './paths/books-collection.yaml'
+  /books/{book}:
+    $ref: './paths/books-item.yaml'
+  /authors:
+    $ref: './paths/authors-collection.yaml'
+  /authors/{author}:
+    $ref: './paths/authors-item.yaml'
+  /subjects:
+    $ref: './paths/subjects-collection.yaml'
+  /subjects/{subject}:
+    $ref: './paths/subjects-item.yaml'
+  /reports/books-by-author/pdf:
+    $ref: './paths/reports-pdf.yaml'
+
+components:
+  parameters:
+    Page:
+      $ref: './components/parameters.yaml#/Page'
+    PerPage:
+      $ref: './components/parameters.yaml#/PerPage'
+    BookId:
+      $ref: './components/parameters.yaml#/BookId'
+    AuthorId:
+      $ref: './components/parameters.yaml#/AuthorId'
+    SubjectId:
+      $ref: './components/parameters.yaml#/SubjectId'
+  schemas:
+    Author:
+      $ref: './components/schemas.yaml#/Author'
+    Subject:
+      $ref: './components/schemas.yaml#/Subject'
+    Book:
+      $ref: './components/schemas.yaml#/Book'
+    BookInput:
+      $ref: './components/schemas.yaml#/BookInput'
+    AuthorInput:
+      $ref: './components/schemas.yaml#/AuthorInput'
+    SubjectInput:
+      $ref: './components/schemas.yaml#/SubjectInput'
+    ErrorResponse:
+      $ref: './components/schemas.yaml#/ErrorResponse'
+    PaginationMeta:
+      $ref: './components/schemas.yaml#/PaginationMeta'
+  responses:
+    ValidationError:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: 'The given data was invalid.'
+            errors:
+              title:
+                - 'The title field is required.'
+            code: VALIDATION_ERROR
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    DuplicateAssociation:
+      description: Unique constraint / duplicate association
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: 'Uniqueness violation: record or association already exists.'
+            errors: null
+            code: DUPLICATE_ASSOCIATION

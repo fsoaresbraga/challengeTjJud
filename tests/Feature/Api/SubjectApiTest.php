@@ -43,6 +43,14 @@ class SubjectApiTest extends TestCase
             ->assertJsonPath('code', 'VALIDATION_ERROR');
     }
 
+    public function test_description_max_length_is_20(): void
+    {
+        $this->postJson('/api/subjects', ['description' => str_repeat('a', 21)])
+            ->assertUnprocessable()
+            ->assertJsonPath('code', 'VALIDATION_ERROR')
+            ->assertJsonValidationErrors(['description']);
+    }
+
     public function test_can_list_subjects(): void
     {
         Subject::factory()->count(2)->create();

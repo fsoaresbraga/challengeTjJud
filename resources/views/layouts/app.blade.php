@@ -91,6 +91,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.books-by-author') }}">Relatório</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('documentation.*') ? 'active' : '' }}" href="{{ route('documentation.index') }}">API Docs</a>
+                    </li>
                 </ul>
             </div>
         </div>

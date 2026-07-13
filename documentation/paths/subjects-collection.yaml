@@ -1,0 +1,48 @@
+get:
+  tags: [Subjects]
+  summary: List subjects
+  operationId: listSubjects
+  parameters:
+    - $ref: '../components/parameters.yaml#/Page'
+    - $ref: '../components/parameters.yaml#/PerPage'
+  responses:
+    '200':
+      description: Paginated subject list
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../components/schemas.yaml#/Subject'
+              meta:
+                $ref: '../components/schemas.yaml#/PaginationMeta'
+
+post:
+  tags: [Subjects]
+  summary: Create subject
+  operationId: createSubject
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas.yaml#/SubjectInput'
+  responses:
+    '201':
+      description: Subject created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Subject'
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'

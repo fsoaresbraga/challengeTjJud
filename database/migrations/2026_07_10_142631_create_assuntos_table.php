@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('assunto', function (Blueprint $table) {
             $table->increments('cod_assunto');
-            $table->string('descricao', 100);
+            $table->string('descricao', 20);
         });
     }
 

@@ -1,0 +1,74 @@
+parameters:
+  - $ref: '../components/parameters.yaml#/SubjectId'
+
+get:
+  tags: [Subjects]
+  summary: Get subject
+  operationId: getSubject
+  responses:
+    '200':
+      description: Subject details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Subject'
+    '404':
+      description: Subject not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+          example:
+            message: Subject with id 999 was not found.
+            errors: null
+            code: SUBJECT_NOT_FOUND
+
+put:
+  tags: [Subjects]
+  summary: Update subject
+  operationId: updateSubject
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas.yaml#/SubjectInput'
+  responses:
+    '200':
+      description: Subject updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Subject'
+    '404':
+      description: Subject not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+
+delete:
+  tags: [Subjects]
+  summary: Delete subject
+  operationId: deleteSubject
+  responses:
+    '204':
+      description: Subject deleted
+    '404':
+      description: Subject not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'

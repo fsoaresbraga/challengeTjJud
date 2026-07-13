@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Web\AuthorPageController;
 use App\Http\Controllers\Web\BookPageController;
+use App\Http\Controllers\Web\DocumentationController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\ReportPageController;
 use App\Http\Controllers\Web\SubjectPageController;
@@ -15,3 +16,9 @@ Route::get('/authors', [AuthorPageController::class, 'index'])->name('authors.in
 Route::get('/subjects', [SubjectPageController::class, 'index'])->name('subjects.index');
 Route::get('/reports/books-by-author', [ReportPageController::class, 'booksByAuthor'])
     ->name('reports.books-by-author');
+
+Route::get('/documentation', [DocumentationController::class, 'index'])
+    ->name('documentation.index');
+Route::get('/documentation/spec/{path}', [DocumentationController::class, 'spec'])
+    ->where('path', '.*')
+    ->name('documentation.spec');

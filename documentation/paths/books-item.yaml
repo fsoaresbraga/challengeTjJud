@@ -1,0 +1,74 @@
+parameters:
+  - $ref: '../components/parameters.yaml#/BookId'
+
+get:
+  tags: [Books]
+  summary: Get book
+  operationId: getBook
+  responses:
+    '200':
+      description: Book details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Book'
+    '404':
+      description: Book not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+          example:
+            message: Book with id 999 was not found.
+            errors: null
+            code: BOOK_NOT_FOUND
+
+put:
+  tags: [Books]
+  summary: Update book
+  operationId: updateBook
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas.yaml#/BookInput'
+  responses:
+    '200':
+      description: Book updated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/schemas.yaml#/Book'
+    '404':
+      description: Book not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+    '422':
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'
+
+delete:
+  tags: [Books]
+  summary: Delete book
+  operationId: deleteBook
+  responses:
+    '204':
+      description: Book deleted
+    '404':
+      description: Book not found
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yaml#/ErrorResponse'

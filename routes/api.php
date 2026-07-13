@@ -12,5 +12,5 @@ Route::apiResource('books', BookController::class)->names('api.books');
 Route::apiResource('authors', AuthorController::class)->names('api.authors');
 Route::apiResource('subjects', SubjectController::class)->names('api.subjects');
 
-Route::get('reports/books-by-author', [ReportController::class, 'booksByAuthor'])
-    ->name('api.reports.books-by-author');
+Route::get('reports/books-by-author/pdf', [ReportController::class, 'booksByAuthorPdf'])
+    ->name('api.reports.books-by-author.pdf');

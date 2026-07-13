@@ -1,0 +1,20 @@
+get:
+  tags: [Reports]
+  summary: Books by author (PDF)
+  description: |
+    Generates a PDF report grouped by author using DomPDF.
+    Download as `books-by-author.pdf`.
+  operationId: reportBooksByAuthorPdf
+  responses:
+    '200':
+      description: PDF binary
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
+      headers:
+        Content-Disposition:
+          schema:
+            type: string
+            example: 'attachment; filename="books-by-author.pdf"'

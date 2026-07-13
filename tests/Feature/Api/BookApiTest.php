@@ -81,6 +81,25 @@ class BookApiTest extends TestCase
             ->assertJsonStructure(['message', 'errors', 'code']);
     }
 
+    public function test_create_book_rejects_title_and_publisher_over_max_length(): void
+    {
+        $author = Author::factory()->create();
+        $subject = Subject::factory()->create();
+
+        $this->postJson('/api/books', [
+            'title' => str_repeat('a', 41),
+            'publisher' => str_repeat('b', 41),
+            'edition' => 1,
+            'publicationYear' => 1899,
+            'price' => 10,
+            'authors' => [$author->cod_autor],
+            'subjects' => [$subject->cod_assunto],
+        ])
+            ->assertUnprocessable()
+            ->assertJsonPath('code', 'VALIDATION_ERROR')
+            ->assertJsonValidationErrors(['title', 'publisher']);
+    }
+
     public function test_can_show_update_and_delete_book(): void
     {
         $author = Author::factory()->create();

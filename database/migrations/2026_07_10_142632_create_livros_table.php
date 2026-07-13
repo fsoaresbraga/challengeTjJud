@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('livro', function (Blueprint $table) {
             $table->increments('cod_livro');
-            $table->string('titulo', 150);
+            $table->string('titulo', 40);
             $table->string('editora', 40);
             $table->integer('edicao');
             $table->unsignedSmallInteger('ano_publicacao');

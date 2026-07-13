@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BookReportResource;
 use App\Services\ReportService;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ReportController extends Controller
 {
@@ -16,10 +15,13 @@ class ReportController extends Controller
     ) {
     }
 
-    public function booksByAuthor(): AnonymousResourceCollection
+    public function booksByAuthorPdf(): Response
     {
-        return BookReportResource::collection(
-            $this->reportService->booksByAuthor()
-        );
+        $pdf = $this->reportService->generateBooksByAuthorPdf();
+
+        return response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="books-by-author.pdf"',
+        ]);
     }
 }

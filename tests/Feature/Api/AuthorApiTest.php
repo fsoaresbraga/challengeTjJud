@@ -43,6 +43,14 @@ class AuthorApiTest extends TestCase
             ->assertJsonPath('code', 'VALIDATION_ERROR');
     }
 
+    public function test_name_max_length_is_40(): void
+    {
+        $this->postJson('/api/authors', ['name' => str_repeat('a', 41)])
+            ->assertUnprocessable()
+            ->assertJsonPath('code', 'VALIDATION_ERROR')
+            ->assertJsonValidationErrors(['name']);
+    }
+
     public function test_can_list_authors(): void
     {
         Author::factory()->count(2)->create();

@@ -65,7 +65,7 @@
                         :class="{ 'is-invalid': errors.description }"
                         x-model="form.description"
                         @input="clearFieldError('description')"
-                        maxlength="100"
+                        maxlength="20"
                     >
                     <div class="invalid-feedback" x-text="errors.description"></div>
                 </div>

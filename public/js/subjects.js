@@ -33,8 +33,8 @@ function subjectsPage() {
 
             if (!description) {
                 errors.description = 'Informe a descrição do assunto.';
-            } else if (description.length > 100) {
-                errors.description = 'A descrição deve ter no máximo 100 caracteres.';
+            } else if (description.length > 20) {
+                errors.description = 'A descrição deve ter no máximo 20 caracteres.';
             }
 
             this.errors = errors;

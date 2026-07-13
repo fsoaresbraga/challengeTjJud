@@ -17,7 +17,7 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->unique()->name(),
+            'nome' => substr(fake()->unique()->name(), 0, 40),
         ];
     }
 }
